@@ -1,21 +1,25 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <multiselect v-model="value" :options="options"></multiselect>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Multiselect from 'vue-multiselect'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  components: {Multiselect},
+  data() {
+    return {
+      value: null,
+      options: ['whiskey', 'gin', 'vodka', 'tequila', 'rum']
+    }
   }
 }
 </script>
 
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
