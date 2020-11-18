@@ -1,20 +1,24 @@
 <template>
   <div id="app">
-    <multiselect v-model="value" :options="options"></multiselect>
+    <multiselect
+      placeholder="pick a spirit" 
+      :value="value" 
+      :options="options"
+      @input="updateValueAction"></multiselect>
   </div>
 </template>
 
 <script>
 import Multiselect from 'vue-multiselect'
-
+import { mapActions, mapState} from 'vuex'
 export default {
   name: 'App',
   components: {Multiselect},
-  data() {
-    return {
-      value: null,
-      options: ['whiskey', 'gin', 'vodka', 'tequila', 'rum']
-    }
+  computed: {
+    ...mapState(['value', 'options'])
+  },
+  methods: {
+    ...mapActions(['updateValueAction'])
   }
 }
 </script>
