@@ -5,17 +5,23 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    value: '',
-    options: ['whiskey', 'gin', 'vodka', 'tequila', 'rum']
+    value: [],
+    options: []
   },
   mutations: {
-    updateValue(state, value) {
-      state.value = value
+    updateOptions(state, value) {
+      state.options = value
+    },
+    resetOptions(state) {
+      state.options = []
     }
   },
   actions: {
-    updateValueAction ({commit}, value) {
-      commit('updateValue', value)
+    updateOptionsAction ({commit}, value) {
+      commit('updateOptions', value)
+    },
+    resetOptionsAction({commit}) {
+      commit('resetOptions')
     }
   },
 })

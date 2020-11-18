@@ -4,22 +4,41 @@
       placeholder="pick a spirit" 
       :value="value" 
       :options="options"
-      @input="updateValueAction"></multiselect>
+      @search-change="asyncFind"
+      @input="updateOptionsAction"></multiselect>
   </div>
 </template>
 
 <script>
 import Multiselect from 'vue-multiselect'
 import { mapActions, mapState} from 'vuex'
+import axios from 'axios'
 export default {
   name: 'App',
   components: {Multiselect},
   computed: {
     ...mapState(['value', 'options'])
   },
+  watch: {
+    value: function (val) {
+      console.log(val)
+    }
+  },
   methods: {
-    ...mapActions(['updateValueAction'])
-  }
+    ...mapActions(['updateOptionsAction']),
+    asyncFind(query) {
+      if(query.length === 0 ) {
+        this.$store.dispatch('resetOptionsAction')
+      } else {
+        axios.get('https://jsonplaceholder.typicode.com/users')
+        .then(res => {
+          console.log(res.data.map(n => n.name))
+          return this.$store.dispatch('updateOptionsAction', res.data.map(n => n.name))
+        })
+        .catch(err => console.log(err))
+      }
+    }
+  },
 }
 </script>
 
